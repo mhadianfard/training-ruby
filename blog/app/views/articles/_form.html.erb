@@ -1,0 +1,27 @@
+<%= form_with model: @article, local: true do |form| %>
+  <% if @article.errors.any? %>
+    <div id="error_explanation" style="color: red;">
+      <%= pluralize(@article.errors.count, "error") %>
+      prevented saving of the article:
+      <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form.label :title %><br />
+    <%= form.text_field :title %>
+  </p>
+
+  <p>
+    <%= form.label :text %><br />
+    <%= form.text_field :text %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

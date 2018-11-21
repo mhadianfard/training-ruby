@@ -1,0 +1,11 @@
+<li>
+  <b><%= comment.commenter %>: </b><br/>
+  <p>
+    <%= comment.body %>
+    <br/>
+    <small>[<%= link_to 'delete', [comment.article, comment],
+                method: :delete,
+                data: { confirm: 'Are you sure?'} %>]</small>
+  </p>
+  <br/>
+</li>
