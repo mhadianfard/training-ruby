@@ -55,10 +55,9 @@ def num_squares(n)
   end
 
   perfect_sqr_count = 2
-  nodes = squares.map{|sqr| Node.new(sqr)}
-  checked_sums = Set.new
+  nodes = (squares.map{|sqr| Node.new(sqr)}).to_set
   until nodes.empty?
-    next_nodes = Array.new
+    next_nodes = Set.new
     nodes.each do |node|
       squares.each do |sqr|
         new_node = Node.new(sqr, node)
@@ -70,9 +69,8 @@ def num_squares(n)
           end
           return perfect_sqr_count
 
-        elsif new_node.sum < n && !checked_sums.include?(new_node)
-          next_nodes << new_node
-          checked_sums.add(new_node)
+        elsif new_node.sum < n && !nodes.include?(new_node)
+          next_nodes.add(new_node)
         end
       end
     end
@@ -98,7 +96,7 @@ def get_squares(max)
   squares
 end
 
-def test(list)
+def run_tests(list)
   list.each do |n|
     benchmark = Benchmark.realtime { num_squares(n) }
     puts "\t took #{benchmark * (10 ** 6)} microseconds."
@@ -107,5 +105,5 @@ def test(list)
 end
 
 if $debug >= 2
-  test([49, 12, 13, 7168])
+  run_tests([49, 12, 13, 7168])
 end
